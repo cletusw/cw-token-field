@@ -1,0 +1,67 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="basic-options-list" attributes="field filterText options selected">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      li {
+        cursor: pointer;
+        list-style-type: none;
+        padding: 5px 6px;
+      }
+
+      li:hover {
+        background-color: #5086DC;
+        color: #fff;
+      }
+
+      .selected {
+        color: #ccc;
+        cursor: default;
+      }
+    </style>
+
+    <template id="filteredOptions" repeat="{{option in options | filter}}">
+      <li class="option {{ { selected: option.selected } | tokenList }}" on-tap="{{onOptionTap}}">{{option.text}}</li>
+    </template>
+
+  </template>
+  <script>
+    Polymer('basic-options-list', {
+      field: '',
+      filterText: '',
+      options: [],
+
+      filter: function(options) {
+        return options.filter(function(option) {
+          if (option[this.field] && option[this.field].indexOf(this.filterText) > -1) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }, this);
+      },
+
+      filterTextChanged: function() {
+        // TODO: Remove this hack.
+        this.$.filteredOptions.iterator_.updateIteratedValue();
+      },
+
+      ready: function() {
+        this.selected = [];
+      },
+
+      onOptionTap: function(e) {
+        var selected = e.target.templateInstance.model.option;
+        if (selected.selected === false) {
+          selected.selected = true;
+          this.selected.push(selected);
+        }
+      }
+    });
+  </script>
+</polymer-element>

@@ -1,3 +1,39 @@
 ﻿:host {
-  display: block;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 2px;
+  width: 200px;
+  position: relative;
+}
+
+.selected {
+  float: left;
+}
+
+input {
+  border: 0;
+  float: left;
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  outline: none;
+}
+
+basic-options-list {
+  background: #fff;
+  border: 1px solid #aaa;
+  border-top: 0;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
+
+basic-options-list[hidden] {
+  display: none !important;
 }

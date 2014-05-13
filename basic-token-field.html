@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="basic-options-list.html">
 
 <!--
 A tagging/tokenizing input a la http://harvesthq.github.io/chosen/,
@@ -24,12 +25,11 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 
     <link href="basic-token-field.css" rel="stylesheet">
 
-    <input type="text" placeholder="{{placeholder}}">
-    <ul class="options">
-      <template repeat="{{options}}">
-        <li value="{{value}}">{{text}}</li>
-      </template>
-    </ul>
+    <template repeat="{{selected}}">
+      <span class="selected">{{text}}</span>
+    </template>
+    <input id="filter" type="text" value="{{filterText}}" placeholder="{{_placeholder}}">
+    <basic-options-list filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}"></basic-options-list>
 
   </template>
 
@@ -44,6 +44,8 @@ http://sliptree.github.io/bootstrap-tokenfield/.
        * @event noevent
        */
 
+      _placeholder: '',
+
       /**
        * The `placeholder` attribute contains text to display when nothing
        * is selected.
@@ -56,10 +58,24 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       attached: function() {
         this.options = Array.prototype.map.call(this.children, function(child) {
           return {
-            value: child.value,
-            text: child.text
+            selected: false,
+            text: child.text,
+            value: child.value
           }
         });
+      },
+
+      placeholderChanged: function() {
+        this.selectedChanged();
+      },
+
+      selectedChanged: function() {
+        if (this.selected && this.selected.length > 0) {
+          this._placeholder = '';
+        }
+        else {
+          this._placeholder = this.placeholder;
+        }
       },
 
       /**
