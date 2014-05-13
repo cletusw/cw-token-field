@@ -1,0 +1,62 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+A tagging/tokenizing input a la http://harvesthq.github.io/chosen/,
+http://loopj.com/jquery-tokeninput/, and
+http://sliptree.github.io/bootstrap-tokenfield/.
+
+##### Example
+
+    <basic-token-field></basic-token-field>
+
+@element basic-token-field
+@blurb A tagging/tokenizing input.
+@status alpha
+@url cletusw.github.io/basic-token-field
+-->
+<polymer-element name="basic-token-field" attributes="notitle">
+
+  <template>
+
+    <link href="basic-token-field.css" rel="stylesheet">
+
+    <content></content>
+
+  </template>
+
+  <script>
+
+    Polymer({
+      /**
+       * The `noevent` event is not actually fired from here,
+       * we document it as an example of documenting events.
+       * 
+       * @event noevent
+       */
+
+      /**
+       * The `notitle` attribute does not yet have a purpose.
+       * 
+       * @attribute notitle
+       * @type string
+       */
+      notitle: '',
+
+      ready: function() {
+      },
+
+      /**
+       * The `task` method does no work at this time.
+       * 
+       * @method task
+       * @return {Object} Returns undefined.
+       * @param {String} dummy Serves no purpose today.
+       */
+      task: function(dummy) {
+      }
+
+    });
+
+  </script>
+
+</polymer-element>

@@ -1,0 +1,7 @@
+{
+  "name": "basic-token-field",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#master"
+  }
+}
