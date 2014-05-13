@@ -7,26 +7,36 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 
 ##### Example
 
-    <basic-token-field></basic-token-field>
+    <basic-token-field placeholder="Choose a color...">
+      <option value="red">Red</option>
+      <option value="green">Green</option>
+      <option value="blue">Blue</option>
+    </basic-token-field>
 
 @element basic-token-field
 @blurb A tagging/tokenizing input.
 @status alpha
 @url cletusw.github.io/basic-token-field
 -->
-<polymer-element name="basic-token-field" attributes="notitle">
+<polymer-element name="basic-token-field" attributes="placeholder">
 
   <template>
 
     <link href="basic-token-field.css" rel="stylesheet">
 
-    <content></content>
+    <input type="text" placeholder="{{placeholder}}">
+    <ul class="options">
+      <template repeat="{{options}}">
+        <li value="{{value}}">{{text}}</li>
+      </template>
+    </ul>
 
   </template>
 
   <script>
 
     Polymer({
+
       /**
        * The `noevent` event is not actually fired from here,
        * we document it as an example of documenting events.
@@ -35,14 +45,21 @@ http://sliptree.github.io/bootstrap-tokenfield/.
        */
 
       /**
-       * The `notitle` attribute does not yet have a purpose.
+       * The `placeholder` attribute contains text to display when nothing
+       * is selected.
        * 
-       * @attribute notitle
-       * @type string
+       * @attribute placeholder
+       * @type String
        */
-      notitle: '',
+      placeholder: '',
 
-      ready: function() {
+      attached: function() {
+        this.options = Array.prototype.map.call(this.children, function(child) {
+          return {
+            value: child.value,
+            text: child.text
+          }
+        });
       },
 
       /**
