@@ -27,7 +27,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
     <link href="cw-token-field.css" rel="stylesheet">
 
     <template repeat="{{selected}}">
-      <span class="selected">{{text}}</span>
+      <span class="selected">{{text}} <span class="unselect" on-tap="{{unselect}}">x</span></span>
     </template>
     <input id="filter" type="text" value="{{filterText}}" placeholder="{{_placeholder}}">
     <cw-options-list filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" on-tap="{{onOptionsTap}}"></cw-options-list>
@@ -85,6 +85,10 @@ http://sliptree.github.io/bootstrap-tokenfield/.
         else {
           this._placeholder = this.placeholder;
         }
+      },
+
+      unselect: function(event, detail, sender) {
+        console.dir(sender);
       },
 
       /**
