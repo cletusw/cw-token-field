@@ -1,5 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="basic-options-list.html">
+<link rel="import" href="cw-options-list.html">
 
 <!--
 A tagging/tokenizing input a la http://harvesthq.github.io/chosen/,
@@ -8,28 +8,28 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 
 ##### Example
 
-    <basic-token-field placeholder="Choose a color...">
+    <cw-token-field placeholder="Choose a color...">
       <option value="red">Red</option>
       <option value="green">Green</option>
       <option value="blue">Blue</option>
-    </basic-token-field>
+    </cw-token-field>
 
-@element basic-token-field
+@element cw-token-field
 @blurb A tagging/tokenizing input.
 @status alpha
-@url cletusw.github.io/basic-token-field
+@url cletusw.github.io/cw-token-field
 -->
-<polymer-element name="basic-token-field" attributes="placeholder">
+<polymer-element name="cw-token-field" attributes="placeholder">
 
   <template>
 
-    <link href="basic-token-field.css" rel="stylesheet">
+    <link href="cw-token-field.css" rel="stylesheet">
 
     <template repeat="{{selected}}">
       <span class="selected">{{text}}</span>
     </template>
     <input id="filter" type="text" value="{{filterText}}" placeholder="{{_placeholder}}">
-    <basic-options-list filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}"></basic-options-list>
+    <cw-options-list filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}"></cw-options-list>
 
   </template>
 
@@ -40,7 +40,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       /**
        * The `noevent` event is not actually fired from here,
        * we document it as an example of documenting events.
-       * 
+       *
        * @event noevent
        */
 
@@ -49,7 +49,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       /**
        * The `placeholder` attribute contains text to display when nothing
        * is selected.
-       * 
+       *
        * @attribute placeholder
        * @type String
        */
@@ -80,7 +80,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 
       /**
        * The `task` method does no work at this time.
-       * 
+       *
        * @method task
        * @return {Object} Returns undefined.
        * @param {String} dummy Serves no purpose today.

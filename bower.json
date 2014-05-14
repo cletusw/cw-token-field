@@ -1,5 +1,5 @@
 {
-  "name": "basic-token-field",
+  "name": "cw-token-field",
   "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#master"

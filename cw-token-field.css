@@ -1,4 +1,4 @@
-﻿:host {
+:host {
   background-color: #fff;
   border: 1px solid #aaa;
   box-sizing: border-box;
@@ -21,7 +21,7 @@ input {
   outline: none;
 }
 
-basic-options-list {
+cw-options-list {
   background: #fff;
   border: 1px solid #aaa;
   border-top: 0;
@@ -34,6 +34,6 @@ basic-options-list {
   width: 100%;
 }
 
-basic-options-list[hidden] {
+cw-options-list[hidden] {
   display: none !important;
 }
