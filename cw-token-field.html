@@ -30,7 +30,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       <span class="selected">{{text}}</span>
     </template>
     <input id="filter" type="text" value="{{filterText}}" placeholder="{{_placeholder}}">
-    <cw-options-list filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}"></cw-options-list>
+    <cw-options-list filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" on-tap="{{onOptionsTap}}"></cw-options-list>
 
   </template>
 
@@ -64,6 +64,10 @@ http://sliptree.github.io/bootstrap-tokenfield/.
             value: child.value
           }
         });
+      },
+
+      onOptionsTap: function() {
+        this.filterText = '';
       },
 
       onTap: function() {
