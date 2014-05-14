@@ -19,7 +19,8 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 @status alpha
 @url cletusw.github.io/cw-token-field
 -->
-<polymer-element name="cw-token-field" attributes="placeholder">
+<polymer-element name="cw-token-field" attributes="placeholder"
+    on-tap="{{onTap}}">
 
   <template>
 
@@ -63,6 +64,10 @@ http://sliptree.github.io/bootstrap-tokenfield/.
             value: child.value
           }
         });
+      },
+
+      onTap: function() {
+        this.$.filter.focus();
       },
 
       placeholderChanged: function() {
