@@ -55,8 +55,8 @@
         this.selected = [];
       },
 
-      onOptionTap: function(e) {
-        var selected = e.target.templateInstance.model.option;
+      onOptionTap: function(event, detail, sender) {
+        var selected = sender.templateInstance.model.option;
         if (selected.selected === false) {
           selected.selected = true;
           this.selected.push(selected);
