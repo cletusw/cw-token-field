@@ -88,7 +88,9 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       },
 
       unselect: function(event, detail, sender) {
-        console.dir(sender);
+        var model = sender.templateInstance.model;
+        this.selected.splice(this.selected.indexOf(model), 1);
+        model.selected = false;
       },
 
       /**
