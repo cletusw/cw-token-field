@@ -29,8 +29,8 @@ http://sliptree.github.io/bootstrap-tokenfield/.
     <template repeat="{{selected}}">
       <span class="selected">{{text}} <span class="unselect" on-tap="{{unselect}}">x</span></span>
     </template>
-    <input id="filter" type="text" value="{{filterText}}" placeholder="{{_placeholder}}">
-    <cw-options-list filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" on-tap="{{onOptionsTap}}"></cw-options-list>
+    <input id="filter" type="text" value="{{filterText}}" placeholder="{{_placeholder}}" on-keydown="{{onKeydown}}">
+    <cw-options-list id="optionsList" filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" hidden?="{{!showOptions}}" on-tap="{{onOptionsTap}}"></cw-options-list>
 
   </template>
 
@@ -47,6 +47,8 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 
       _placeholder: '',
 
+      filterText: '',
+
       /**
        * The `placeholder` attribute contains text to display when nothing
        * is selected.
@@ -55,6 +57,8 @@ http://sliptree.github.io/bootstrap-tokenfield/.
        * @type String
        */
       placeholder: '',
+
+      showOptions: false,
 
       attached: function() {
         this.options = Array.prototype.map.call(this.children, function(child) {
@@ -66,19 +70,20 @@ http://sliptree.github.io/bootstrap-tokenfield/.
         });
       },
 
-      onOptionsTap: function() {
-        this.filterText = '';
+      onKeydown: function(event) {
+        if (event.keyCode === 13) {
+          // Enter
+          this.$.optionsList.selectCurrent();
+        }
       },
 
       onTap: function() {
         this.$.filter.focus();
+        this.$.optionsList.filterTextChanged();
+        this.showOptions = true;
       },
 
       placeholderChanged: function() {
-        this.selectedChanged();
-      },
-
-      selectedChanged: function() {
         if (this.selected && this.selected.length > 0) {
           this._placeholder = '';
         }
@@ -87,10 +92,16 @@ http://sliptree.github.io/bootstrap-tokenfield/.
         }
       },
 
+      selectedChanged: function() {
+        this.showOptions = false;
+        this.filterText = '';
+        this.placeholderChanged();
+      },
+
       unselect: function(event, detail, sender) {
         var model = sender.templateInstance.model;
-        this.selected.splice(this.selected.indexOf(model), 1);
         model.selected = false;
+        this.selected.splice(this.selected.indexOf(model), 1);
       },
 
       /**

@@ -7,25 +7,25 @@
         display: block;
       }
 
-      li {
+      .option {
         cursor: pointer;
         list-style-type: none;
         padding: 5px 6px;
-      }
-
-      li:hover {
-        background-color: #5086DC;
-        color: #fff;
       }
 
       .selected {
         color: #ccc;
         cursor: default;
       }
+
+      [highlighted] {
+        background-color: #5086DC;
+        color: #fff;
+      }
     </style>
 
-    <template id="filteredOptions" repeat="{{option in options | filter}}">
-      <li class="option {{ { selected: option.selected } | tokenList }}" on-tap="{{onOptionTap}}">{{option.text}}</li>
+    <template id="optionsTemplate" repeat="{{option in options | filter}}">
+      <li class="option {{ { selected: option.selected } | tokenList }}" on-tap="{{onOptionTap}}" highlighted?="{{option === highlighted}}">{{option.text}}</li>
     </template>
 
   </template>
@@ -33,11 +33,16 @@
     Polymer('cw-options-list', {
       field: '',
       filterText: '',
+      highlighted: null,
       options: [],
 
       filter: function(options) {
+        this.highlighted = null;
         return options.filter(function(option) {
           if (option[this.field] && option[this.field].indexOf(this.filterText) > -1) {
+            if (!this.highlighted && !option.selected) {
+              this.highlighted = option;
+            }
             return true;
           }
           else {
@@ -48,18 +53,29 @@
 
       filterTextChanged: function() {
         // TODO: Remove this hack.
-        this.$.filteredOptions.iterator_.updateIteratedValue();
+        this.$.optionsTemplate.iterator_.updateIteratedValue();
       },
 
       ready: function() {
         this.selected = [];
       },
 
+      select: function(model) {
+        model.selected = true;
+        this.selected.push(model);
+        this.highlighted = null;
+      },
+
+      selectCurrent: function() {
+        if (this.highlighted && !this.hidden) {
+          this.select(this.highlighted);
+        }
+      },
+
       onOptionTap: function(event, detail, sender) {
-        var selected = sender.templateInstance.model.option;
-        if (selected.selected === false) {
-          selected.selected = true;
-          this.selected.push(selected);
+        var model = sender.templateInstance.model.option;
+        if (model.selected === false) {
+          this.select(model);
         }
       }
     });
