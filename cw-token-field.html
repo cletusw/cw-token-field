@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../cw-autosize-input/cw-autosize-input.html">
 <link rel="import" href="cw-options-list.html">
 
 <!--
@@ -27,7 +28,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
     <template repeat="{{selected}}">
       <span class="selected">{{text}} <span class="unselect" on-tap="{{unselect}}">x</span></span>
     </template>
-    <input id="filter" type="text" value="{{filterText}}" placeholder="{{_placeholder}}" on-keydown="{{onKeydown}}" on-input="{{onInput}}">
+    <input is="cw-autosize-input" id="filter" type="text" inputValue="{{filterText}}" placeholder="{{_placeholder}}" on-keydown="{{onKeydown}}" on-input="{{onInput}}">
     <cw-options-list id="optionsList" filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" hidden?="{{!showOptions}}" on-tap="{{onOptionsTap}}"></cw-options-list>
 
   </template>

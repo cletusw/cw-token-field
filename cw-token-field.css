@@ -37,6 +37,7 @@ input {
   font-family: inherit;
   font-size: 100%;
   margin: 5px 0 5px 5px;
+  min-width: 25px;
   outline: none;
   padding: 3px 0;
 }
