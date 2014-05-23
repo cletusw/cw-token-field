@@ -28,7 +28,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
     <template repeat="{{selected}}">
       <span class="selected">{{text}} <span class="unselect" on-tap="{{unselect}}">x</span></span>
     </template>
-    <input is="cw-autosize-input" id="filter" type="text" class="{{ { 'maximize-width': selected.length === 0 } | tokenList }}" inputValue="{{filterText}}" placeholder="{{_placeholder}}" on-keydown="{{onKeydown}}" on-input="{{onInput}}">
+    <input is="cw-autosize-input" id="filter" type="text" class="{{ { 'maximize-width': selected.length === 0 } | tokenList }}" inputValue="{{filterText}}" placeholder="{{_placeholder}}" on-keydown="{{onKeydown}}" on-input="{{onInput}}" on-blur="{{onBlur}}">
     <cw-options-list id="optionsList" filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" hidden?="{{!showOptions}}" on-tap="{{onOptionsTap}}"></cw-options-list>
 
   </template>
@@ -67,6 +67,10 @@ http://sliptree.github.io/bootstrap-tokenfield/.
             value: child.value
           }
         });
+      },
+
+      onBlur: function() {
+        this.showOptions = false;
       },
 
       onInput: function() {
