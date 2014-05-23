@@ -70,7 +70,10 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       },
 
       onBlur: function() {
-        this.showOptions = false;
+        // Need delay for tap event to register on cw-options-list
+        setTimeout(function() {
+          this.showOptions = false;
+        }.bind(this), 100);
       },
 
       onInput: function() {
