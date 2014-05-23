@@ -52,6 +52,10 @@ input {
   word-spacing: inherit;
 }
 
+input.maximize-width {
+  width: 100% !important;
+}
+
 cw-options-list {
   background: #fff;
   border: 1px solid #aaa;
