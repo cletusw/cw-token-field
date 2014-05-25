@@ -87,6 +87,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
           this.$.optionsList.selectCurrent();
         }
         else if (event.keyCode === 8 && this.filterText === '' && this.selected.length > 0) {
+          // Backspace
           var removed = this.selected.pop();
           removed.selected = false;
         }
