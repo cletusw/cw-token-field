@@ -18,7 +18,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 @element cw-token-field
 @homepage http://cletusw.github.io/cw-token-field
 -->
-<polymer-element name="cw-token-field" on-tap="{{onTap}}">
+<polymer-element name="cw-token-field" tabindex="0" on-tap="{{onTap}}" on-focus="{{onFocus}}" on-blur="{{onBlur}}">
 
   <template>
 
@@ -27,7 +27,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
     <template repeat="{{selected}}">
       <span class="selected">{{text}} <span class="unselect" on-tap="{{unselect}}">x</span></span>
     </template>
-    <input is="cw-autosize-input" id="filter" type="text" class="{{ { 'maximize-width': selected.length === 0 } | tokenList }}" inputValue="{{filterText}}" placeholder="{{_placeholder}}" on-keydown="{{onKeydown}}" on-input="{{onInput}}" on-blur="{{onBlur}}">
+    <input is="cw-autosize-input" id="filter" type="text" class="{{ { 'maximize-width': selected.length === 0 } | tokenList }}" inputValue="{{filterText}}" placeholder="{{_placeholder}}" on-input="{{onInput}}" on-keydown="{{onKeydown}}">
     <cw-options-list id="optionsList" filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" hidden?="{{!isOptionsListVisible}}" on-tap="{{onOptionsTap}}"></cw-options-list>
 
   </template>
@@ -71,10 +71,11 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       },
 
       onBlur: function() {
-        // Need delay for tap event to register on cw-options-list
-        setTimeout(function() {
-          this.isOptionsListVisible = false;
-        }.bind(this), 200);
+        this.isOptionsListVisible = false;
+      },
+
+      onFocus: function() {
+        this.isOptionsListVisible = true;
       },
 
       onInput: function() {
@@ -95,7 +96,6 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 
       onTap: function() {
         this.$.filter.focus();
-        this.$.optionsList.filterTextChanged();
         this.isOptionsListVisible = true;
       },
 
