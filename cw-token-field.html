@@ -28,7 +28,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       <span class="selected">{{text}} <span class="unselect" on-tap="{{unselect}}">x</span></span>
     </template>
     <input is="cw-autosize-input" id="filter" type="text" class="{{ { 'maximize-width': selected.length === 0 } | tokenList }}" inputValue="{{filterText}}" placeholder="{{_placeholder}}" on-keydown="{{onKeydown}}" on-input="{{onInput}}" on-blur="{{onBlur}}">
-    <cw-options-list id="optionsList" filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" hidden?="{{!showOptions}}" on-tap="{{onOptionsTap}}"></cw-options-list>
+    <cw-options-list id="optionsList" filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" hidden?="{{!isOptionsListVisible}}" on-tap="{{onOptionsTap}}"></cw-options-list>
 
   </template>
 
@@ -58,7 +58,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 
       filterText: '',
 
-      showOptions: false,
+      isOptionsListVisible: false,
 
       attached: function() {
         this.options = Array.prototype.map.call(this.children, function(child) {
@@ -73,12 +73,12 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       onBlur: function() {
         // Need delay for tap event to register on cw-options-list
         setTimeout(function() {
-          this.showOptions = false;
-        }.bind(this), 100);
+          this.isOptionsListVisible = false;
+        }.bind(this), 200);
       },
 
       onInput: function() {
-        this.showOptions = true;
+        this.isOptionsListVisible = true;
       },
 
       onKeydown: function(event) {
@@ -96,7 +96,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       onTap: function() {
         this.$.filter.focus();
         this.$.optionsList.filterTextChanged();
-        this.showOptions = true;
+        this.isOptionsListVisible = true;
       },
 
       placeholderChanged: function() {
@@ -109,7 +109,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       },
 
       selectedChanged: function() {
-        this.showOptions = false;
+        this.isOptionsListVisible = false;
         this.filterText = '';
         this.placeholderChanged();
       },
