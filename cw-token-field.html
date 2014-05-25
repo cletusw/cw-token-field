@@ -85,6 +85,10 @@ http://sliptree.github.io/bootstrap-tokenfield/.
           // Enter
           this.$.optionsList.selectCurrent();
         }
+        else if (event.keyCode === 8 && this.filterText === '' && this.selected.length > 0) {
+          var removed = this.selected.pop();
+          removed.selected = false;
+        }
       },
 
       onTap: function() {
