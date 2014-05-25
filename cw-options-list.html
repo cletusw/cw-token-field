@@ -25,7 +25,7 @@
     </style>
 
     <template id="optionsTemplate" repeat="{{option in options | filter}}">
-      <li class="option {{ { selected: option.selected } | tokenList }}" on-tap="{{onOptionTap}}" highlighted?="{{option === highlighted}}">{{option.text}}</li>
+      <li class="option {{ { selected: option.selected } | tokenList }}" on-tap="{{onOptionTap}}" highlighted?="{{option === highlighted}}" on-mouseenter="{{onMouseEnter}}">{{option.text}}</li>
     </template>
 
   </template>
@@ -69,6 +69,13 @@
       selectCurrent: function() {
         if (this.highlighted && !this.hidden) {
           this.select(this.highlighted);
+        }
+      },
+
+      onMouseEnter: function(event, detail, sender) {
+        var model = sender.templateInstance.model.option;
+        if (model.selected === false) {
+          this.highlighted = model;
         }
       },
 
