@@ -18,8 +18,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 @element cw-token-field
 @homepage http://cletusw.github.io/cw-token-field
 -->
-<polymer-element name="cw-token-field" attributes="placeholder"
-    on-tap="{{onTap}}">
+<polymer-element name="cw-token-field" on-tap="{{onTap}}">
 
   <template>
 
@@ -44,18 +43,20 @@ http://sliptree.github.io/bootstrap-tokenfield/.
        * @event noevent
        */
 
+      publish: {
+        /**
+         * The `placeholder` attribute contains text to display when nothing
+         * is selected.
+         *
+         * @attribute placeholder
+         * @type String
+         */
+        placeholder: '',
+      },
+
       _placeholder: '',
 
       filterText: '',
-
-      /**
-       * The `placeholder` attribute contains text to display when nothing
-       * is selected.
-       *
-       * @attribute placeholder
-       * @type String
-       */
-      placeholder: '',
 
       showOptions: false,
 
