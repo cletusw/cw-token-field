@@ -56,6 +56,41 @@
         this.$.optionsTemplate.iterator_.updateIteratedValue();
       },
 
+      highlightFirst: function() {
+        var length = this.options.length;
+        for (var i = 0; i < length; i++) {
+          if (!this.options[i].selected) {
+            this.highlighted = this.options[i];
+            return;
+          }
+        }
+
+        // All are selected, highlight nothing
+        this.highlighted = null;
+      },
+
+      highlightNext: function() {
+        var length = this.options.length;
+        for (var i = this.options.indexOf(this.highlighted) + 1;
+            i < length; i++) {
+          if (!this.options[i].selected) {
+            this.highlighted = this.options[i];
+            return;
+          }
+        }
+      },
+
+      highlightPrevious: function() {
+        var length = this.options.length;
+        for (var i = this.options.indexOf(this.highlighted) - 1;
+            i >= 0; i--) {
+          if (!this.options[i].selected) {
+            this.highlighted = this.options[i];
+            return;
+          }
+        }
+      },
+
       ready: function() {
         this.selected = [];
       },
