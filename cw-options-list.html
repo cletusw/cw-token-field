@@ -1,7 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <polymer-element name="cw-options-list" attributes="field filterText options selected">
+
   <template>
+
     <style>
       :host {
         display: block;
@@ -38,11 +40,17 @@
     </div>
 
   </template>
+
   <script>
+
     Polymer('cw-options-list', {
+
       field: '',
+
       filterText: '',
+
       highlighted: null,
+
       options: [],
 
       filter: function(options) {
@@ -129,6 +137,9 @@
           this.select(model);
         }
       }
+
     });
+
   </script>
+
 </polymer-element>
