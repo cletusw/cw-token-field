@@ -10,7 +10,12 @@
       .option {
         cursor: pointer;
         list-style-type: none;
+        overflow: hidden;
         padding: 5px 6px;
+      }
+
+      .option ~ .no-options {
+        display: none;
       }
 
       .selected {
@@ -24,9 +29,13 @@
       }
     </style>
 
-    <template id="optionsTemplate" repeat="{{option in options | filter}}">
-      <li class="option {{ { selected: option.selected } | tokenList }}" on-tap="{{onOptionTap}}" highlighted?="{{option === highlighted}}" on-mouseenter="{{onMouseEnter}}">{{option.text}}</li>
-    </template>
+    <!-- Wrapper div necessary for sibling CSS selector to work for now -->
+    <div>
+      <template id="optionsTemplate" repeat="{{option in options | filter}}">
+        <li class="option {{ { selected: option.selected } | tokenList }}" on-tap="{{onOptionTap}}" highlighted?="{{option === highlighted}}" on-mouseenter="{{onMouseEnter}}">{{option.text}}</li>
+      </template>
+      <li class="option no-options">No results for "{{filterText}}"</li>
+    </div>
 
   </template>
   <script>
