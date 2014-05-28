@@ -34,7 +34,7 @@
     <!-- Wrapper div necessary for sibling CSS selector to work for now -->
     <div>
       <template id="optionsTemplate" repeat="{{option in options | filter}}">
-        <li class="option {{ { selected: option.selected } | tokenList }}" on-tap="{{onOptionTap}}" highlighted?="{{option === highlighted}}" on-mouseenter="{{onMouseEnter}}">{{option.text}}</li>
+        <li class="option {{ { selected: option.selected } | tokenList }}" highlighted?="{{option === highlighted}}" on-mouseenter="{{onMouseEnter}}" on-tap="{{onOptionTap}}">{{option.text}}</li>
       </template>
       <li class="option no-options">No results for "{{filterText}}"</li>
     </div>
@@ -114,6 +114,20 @@
         }
       },
 
+      onMouseEnter: function(event, detail, sender) {
+        var model = sender.templateInstance.model.option;
+        if (model.selected === false) {
+          this.highlighted = model;
+        }
+      },
+
+      onOptionTap: function(event, detail, sender) {
+        var model = sender.templateInstance.model.option;
+        if (model.selected === false) {
+          this.select(model);
+        }
+      },
+
       ready: function() {
         this.selected = [];
       },
@@ -127,20 +141,6 @@
       selectCurrent: function() {
         if (this.highlighted && !this.hidden) {
           this.select(this.highlighted);
-        }
-      },
-
-      onMouseEnter: function(event, detail, sender) {
-        var model = sender.templateInstance.model.option;
-        if (model.selected === false) {
-          this.highlighted = model;
-        }
-      },
-
-      onOptionTap: function(event, detail, sender) {
-        var model = sender.templateInstance.model.option;
-        if (model.selected === false) {
-          this.select(model);
         }
       }
 

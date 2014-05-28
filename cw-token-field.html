@@ -18,7 +18,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 @element cw-token-field
 @homepage http://cletusw.github.io/cw-token-field
 -->
-<polymer-element name="cw-token-field" tabindex="0" on-tap="{{onTap}}" on-focus="{{onFocus}}" on-blur="{{onBlur}}">
+<polymer-element name="cw-token-field" on-blur="{{onBlur}}" on-focus="{{onFocus}}" on-tap="{{onTap}}" tabindex="0">
 
   <template>
 
@@ -27,8 +27,8 @@ http://sliptree.github.io/bootstrap-tokenfield/.
     <template repeat="{{selected}}">
       <span class="selected">{{text}} <span class="unselect" on-tap="{{unselect}}">x</span></span>
     </template>
-    <input is="cw-autosize-input" id="filter" type="text" class="{{ { 'maximize-width': selected.length === 0 } | tokenList }}" inputValue="{{filterText}}" placeholder="{{_placeholder}}" on-input="{{onInput}}" on-keydown="{{onKeydown}}">
-    <cw-options-list id="optionsList" filterText="{{filterText}}" options="{{options}}" field="text" selected="{{selected}}" hidden?="{{!isOptionsListVisible}}" on-tap="{{onOptionsTap}}"></cw-options-list>
+    <input class="{{ { 'maximize-width': selected.length === 0 } | tokenList }}" id="filter" inputValue="{{filterText}}" is="cw-autosize-input" on-input="{{onInput}}" on-keydown="{{onKeydown}}" placeholder="{{_placeholder}}" type="text">
+    <cw-options-list field="text" filterText="{{filterText}}" hidden?="{{!isOptionsListVisible}}" id="optionsList" on-tap="{{onOptionsTap}}" options="{{options}}" selected="{{selected}}"></cw-options-list>
 
   </template>
 
