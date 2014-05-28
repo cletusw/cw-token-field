@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 
-<polymer-element name="cw-options-list" attributes="field filterText options selected">
+<polymer-element name="cw-options-list">
 
   <template>
 
@@ -45,13 +45,19 @@
 
     Polymer('cw-options-list', {
 
-      field: '',
+      publish: {
 
-      filterText: '',
+        field: '',
+
+        filterText: '',
+
+        options: [],
+
+        selected: []
+
+      },
 
       highlighted: null,
-
-      options: [],
 
       filter: function(options) {
         this.highlighted = null;
