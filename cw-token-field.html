@@ -36,13 +36,6 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 
     Polymer({
 
-      /**
-       * The `noevent` event is not actually fired from here,
-       * we document it as an example of documenting events.
-       *
-       * @event noevent
-       */
-
       publish: {
         /**
          * The `placeholder` attribute contains text to display when nothing
@@ -140,16 +133,6 @@ http://sliptree.github.io/bootstrap-tokenfield/.
         var model = sender.templateInstance.model;
         model.selected = false;
         this.selected.splice(this.selected.indexOf(model), 1);
-      },
-
-      /**
-       * The `task` method does no work at this time.
-       *
-       * @method task
-       * @return {Object} Returns undefined.
-       * @param {String} dummy Serves no purpose today.
-       */
-      task: function(dummy) {
       }
 
     });
