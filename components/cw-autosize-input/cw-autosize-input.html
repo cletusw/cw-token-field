@@ -1,0 +1,74 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+A form input web component that dynamically resizes itself based on its content.
+
+##### Example
+
+    <input is="cw-autosize-input" type="text" placeholder="Start typing">
+
+Use the CSS `min-width` and `max-width` properties to control the auto-growing.
+If no `min-width` is specified, it will default to the computed value of
+`width`, which may be specified by the user agent.
+
+@element cw-autosize-input
+@extends input
+@homepage http://cletusw.github.io/cw-autosize-input
+-->
+<polymer-element name="cw-autosize-input" extends="input" attributes="inputValue" on-input="{{onInput}}">
+
+  <script>
+
+    Polymer({
+
+      inputValue: '',
+
+      attached: function() {
+        this.bind('value', new PathObserver(this, 'inputValue'));
+
+        this.mirrorStyles();
+
+        document.body.appendChild(this.mirror);
+
+        this.inputValueChanged();
+      },
+
+      detached: function() {
+        document.body.removeChild(this.mirror);
+      },
+
+      inputValueChanged: function() {
+        this.mirror.innerText = this.inputValue + '   ';
+        this.style.width = this.mirror.clientWidth + 'px';
+      },
+
+      mirrorStyles: function() {
+        var computedStyles = getComputedStyle(this);
+        var minWidth = computedStyles.getPropertyValue('min-width');
+        var width = computedStyles.getPropertyValue('width');
+
+        // Provide default value for min-width to prevent shrinking on first character input
+        if (minWidth === '0px') {
+          this.style.minWidth = width;
+        }
+
+        // Copy styles from input to mirror
+        this.mirror.style.cssText = computedStyles.cssText;
+
+        this.mirror.style.position = 'absolute';
+        this.mirror.style.top = '-999px';
+        this.mirror.style.left = '0';
+        this.mirror.style.padding = '0';
+        this.mirror.style.width = '';
+        this.mirror.style['white-space'] = 'pre';
+      },
+
+      ready: function() {
+        this.mirror = document.createElement('span');
+      }
+
+    });
+
+  </script>
+
+</polymer-element>

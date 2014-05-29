@@ -1,0 +1,20 @@
+{
+  "name": "cw-autosize-input",
+  "description": "An input type='text' that dynamically resizes itself based on its content.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "cw-autosize-input.html",
+  "homepage": "http://github.com/cletusw/cw-autosize-input",
+  "keywords": [
+    "Polymer",
+    "web-components"
+  ],
+  "ignore": [
+    "**/.*",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#master"
+  }
+}

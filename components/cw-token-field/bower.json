@@ -1,0 +1,8 @@
+{
+  "name": "cw-token-field",
+  "private": true,
+  "dependencies": {
+    "cw-autosize-input": "~0.1.2",
+    "polymer": "Polymer/polymer#master"
+  }
+}

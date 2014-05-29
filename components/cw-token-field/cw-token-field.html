@@ -1,0 +1,144 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../cw-autosize-input/cw-autosize-input.html">
+<link rel="import" href="cw-options-list.html">
+
+<!--
+A tagging/tokenizing input a la http://harvesthq.github.io/chosen/,
+http://loopj.com/jquery-tokeninput/, and
+http://sliptree.github.io/bootstrap-tokenfield/.
+
+##### Example
+
+    <cw-token-field placeholder="Choose a color...">
+      <option value="red">Red</option>
+      <option value="green">Green</option>
+      <option value="blue">Blue</option>
+    </cw-token-field>
+
+@element cw-token-field
+@homepage http://cletusw.github.io/cw-token-field
+-->
+<polymer-element name="cw-token-field" on-blur="{{onBlur}}" on-focus="{{onFocus}}" on-tap="{{onTap}}" tabindex="0">
+
+  <template>
+
+    <link href="cw-token-field.css" rel="stylesheet">
+
+    <template repeat="{{selected}}">
+      <span class="selected">{{text}} <span class="unselect" on-tap="{{unselect}}">x</span></span>
+    </template>
+    <input class="{{ { 'maximize-width': selected.length === 0 } | tokenList }}" id="filter" inputValue="{{filterText}}" is="cw-autosize-input" on-input="{{onInput}}" on-keydown="{{onKeydown}}" placeholder="{{_placeholder}}" type="text">
+    <cw-options-list field="text" filterText="{{filterText}}" hidden?="{{!isOptionsListVisible}}" id="optionsList" on-tap="{{onOptionsTap}}" options="{{options}}" selected="{{selected}}"></cw-options-list>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      publish: {
+        /**
+         * The `placeholder` attribute contains text to display when nothing
+         * is selected.
+         *
+         * @attribute placeholder
+         * @type String
+         */
+        placeholder: '',
+      },
+
+      _placeholder: '',
+
+      filterText: '',
+
+      isOptionsListVisible: false,
+
+      options: [],
+
+      attached: function() {
+        this.options = Array.prototype.map.call(this.children, function(child) {
+          return {
+            selected: false,
+            text: child.text,
+            value: child.value
+          }
+        });
+      },
+
+      onBlur: function() {
+        this.isOptionsListVisible = false;
+      },
+
+      onFocus: function() {
+        this.isOptionsListVisible = true;
+      },
+
+      onInput: function() {
+        this.isOptionsListVisible = true;
+      },
+
+      onKeydown: function(event) {
+        if (event.keyCode === 13) {
+          // Enter
+          this.$.optionsList.selectCurrent();
+        }
+        else if (event.keyCode === 8 && this.filterText === '' && this.selected.length > 0) {
+          // Backspace
+          var removed = this.selected.pop();
+          removed.selected = false;
+        }
+        else if (event.keyCode === 38) {
+          // Up
+          event.preventDefault();
+          if (!this.isOptionsListVisible) {
+            this.isOptionsListVisible = true;
+            this.$.optionsList.highlightFirst();
+          }
+          else {
+            this.$.optionsList.highlightPrevious();
+          }
+        }
+        else if (event.keyCode === 40) {
+          // Down
+          event.preventDefault();
+          if (!this.isOptionsListVisible) {
+            this.isOptionsListVisible = true;
+            this.$.optionsList.highlightFirst();
+          }
+          else {
+            this.$.optionsList.highlightNext();
+          }
+        }
+      },
+
+      onTap: function() {
+        this.$.filter.focus();
+        this.isOptionsListVisible = true;
+      },
+
+      placeholderChanged: function() {
+        if (this.selected && this.selected.length > 0) {
+          this._placeholder = '';
+        }
+        else {
+          this._placeholder = this.placeholder;
+        }
+      },
+
+      selectedChanged: function() {
+        this.isOptionsListVisible = false;
+        this.filterText = '';
+        this.placeholderChanged();
+      },
+
+      unselect: function(event, detail, sender) {
+        var model = sender.templateInstance.model;
+        model.selected = false;
+        this.selected.splice(this.selected.indexOf(model), 1);
+      }
+
+    });
+
+  </script>
+
+</polymer-element>

@@ -1,0 +1,151 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="cw-options-list">
+
+  <template>
+
+    <style>
+      :host {
+        display: block;
+      }
+
+      .option {
+        cursor: pointer;
+        list-style-type: none;
+        overflow: hidden;
+        padding: 5px 6px;
+      }
+
+      .option ~ .no-options {
+        display: none;
+      }
+
+      .selected {
+        color: #ccc;
+        cursor: default;
+      }
+
+      [highlighted] {
+        background-color: #5086DC;
+        color: #fff;
+      }
+    </style>
+
+    <!-- Wrapper div necessary for sibling CSS selector to work for now -->
+    <div>
+      <template id="optionsTemplate" repeat="{{option in options | filter}}">
+        <li class="option {{ { selected: option.selected } | tokenList }}" highlighted?="{{option === highlighted}}" on-mouseenter="{{onMouseEnter}}" on-tap="{{onOptionTap}}">{{option.text}}</li>
+      </template>
+      <li class="option no-options">No results for "{{filterText}}"</li>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer('cw-options-list', {
+
+      publish: {
+
+        field: '',
+
+        filterText: '',
+
+        options: [],
+
+        selected: []
+
+      },
+
+      highlighted: null,
+
+      filter: function(options) {
+        this.highlighted = null;
+        return options.filter(function(option) {
+          if (option[this.field] && option[this.field].indexOf(this.filterText) > -1) {
+            if (!this.highlighted && !option.selected) {
+              this.highlighted = option;
+            }
+            return true;
+          }
+          else {
+            return false;
+          }
+        }, this);
+      },
+
+      filterTextChanged: function() {
+        // TODO: Remove this hack.
+        this.$.optionsTemplate.iterator_.updateIteratedValue();
+      },
+
+      highlightFirst: function() {
+        var length = this.options.length;
+        for (var i = 0; i < length; i++) {
+          if (!this.options[i].selected) {
+            this.highlighted = this.options[i];
+            return;
+          }
+        }
+
+        // All are selected, highlight nothing
+        this.highlighted = null;
+      },
+
+      highlightNext: function() {
+        var length = this.options.length;
+        for (var i = this.options.indexOf(this.highlighted) + 1;
+            i < length; i++) {
+          if (!this.options[i].selected) {
+            this.highlighted = this.options[i];
+            return;
+          }
+        }
+      },
+
+      highlightPrevious: function() {
+        var length = this.options.length;
+        for (var i = this.options.indexOf(this.highlighted) - 1;
+            i >= 0; i--) {
+          if (!this.options[i].selected) {
+            this.highlighted = this.options[i];
+            return;
+          }
+        }
+      },
+
+      onMouseEnter: function(event, detail, sender) {
+        var model = sender.templateInstance.model.option;
+        if (model.selected === false) {
+          this.highlighted = model;
+        }
+      },
+
+      onOptionTap: function(event, detail, sender) {
+        var model = sender.templateInstance.model.option;
+        if (model.selected === false) {
+          this.select(model);
+        }
+      },
+
+      ready: function() {
+        this.selected = [];
+      },
+
+      select: function(model) {
+        model.selected = true;
+        this.selected.push(model);
+        this.highlighted = null;
+      },
+
+      selectCurrent: function() {
+        if (this.highlighted && !this.hidden) {
+          this.select(this.highlighted);
+        }
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
