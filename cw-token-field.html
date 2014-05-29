@@ -70,7 +70,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
       },
 
       onFocus: function() {
-        this.isOptionsListVisible = true;
+        this.resetOptionsList();
       },
 
       onInput: function() {
@@ -91,8 +91,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
           // Up
           event.preventDefault();
           if (!this.isOptionsListVisible) {
-            this.isOptionsListVisible = true;
-            this.$.optionsList.highlightFirst();
+            this.resetOptionsList();
           }
           else {
             this.$.optionsList.highlightPrevious();
@@ -102,8 +101,7 @@ http://sliptree.github.io/bootstrap-tokenfield/.
           // Down
           event.preventDefault();
           if (!this.isOptionsListVisible) {
-            this.isOptionsListVisible = true;
-            this.$.optionsList.highlightFirst();
+            this.resetOptionsList();
           }
           else {
             this.$.optionsList.highlightNext();
@@ -113,7 +111,9 @@ http://sliptree.github.io/bootstrap-tokenfield/.
 
       onTap: function() {
         this.$.filter.focus();
-        this.isOptionsListVisible = true;
+        if (!this.isOptionsListVisible) {
+          this.resetOptionsList();
+        }
       },
 
       placeholderChanged: function() {
@@ -123,6 +123,11 @@ http://sliptree.github.io/bootstrap-tokenfield/.
         else {
           this._placeholder = this.placeholder;
         }
+      },
+
+      resetOptionsList: function() {
+        this.$.optionsList.highlightFirst();
+        this.isOptionsListVisible = true;
       },
 
       selectedChanged: function() {
