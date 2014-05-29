@@ -1,6 +1,16 @@
 {
   "name": "cw-token-field",
-  "private": true,
+  "description": "A tagging/tokenizing input (a.k.a. pill box).",
+  "homepage": "http://github.com/cletusw/cw-token-field",
+  "license": "MIT",
+  "main": "cw-token-field.html",
+  "keywords": [
+    "Polymer",
+    "web-components"
+  ],
+  "ignore": [
+    "**/.*"
+  ],
   "dependencies": {
     "cw-autosize-input": "~0.1.2",
     "polymer": "Polymer/polymer#master"
