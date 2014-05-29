@@ -1,0 +1,8 @@
+{
+  "name": "cw-token-field#gh-pages",
+  "dependencies": {
+    "cw-token-field": "cletusw/cw-token-field#master",
+    "polymer": "Polymer/polymer#master"
+  }
+}
+
