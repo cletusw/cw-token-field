@@ -61,7 +61,7 @@
 
       filter: function(options) {
         this.highlighted = null;
-        return options.filter(function(option) {
+        return (options || []).filter(function(option) {
           if (option[this.field] && option[this.field].indexOf(this.filterText) > -1) {
             if (!this.highlighted && !option.selected) {
               this.highlighted = option;
